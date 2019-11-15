@@ -1,7 +1,10 @@
 package io.gitlab.arturbosch.detekt.rules.bugs
 
 import io.gitlab.arturbosch.detekt.api.*
-import org.jetbrains.kotlin.psi.*
+import org.jetbrains.kotlin.psi.KtCallableDeclaration
+import org.jetbrains.kotlin.psi.KtFunction
+import org.jetbrains.kotlin.psi.KtNamedDeclaration
+import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.resolve.calls.callUtil.getType
 import org.jetbrains.kotlin.resolve.typeBinding.createTypeBindingForReturnType
@@ -9,7 +12,9 @@ import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.isNullable
 
 /**
- * Platform types must be declared explicitly as nullable to prevent unexpected errors.
+ * If platform types are declared explicitly, they must be declared as nullable to prevent unexpected errors.
+ *
+ * Very likely you'll want to use this rule in combination with [HasPlatformType].
  *
  * <noncompliant>
  * class Person {
@@ -23,15 +28,12 @@ import org.jetbrains.kotlin.types.isNullable
  * }
  * </compliant>
  */
-// Todo: Detect type coercions in argument position:
-//  fun foo(a : String)
-//  foo (badJavaCall()) -- badJavaCall() : String?
-class HasUnsafePlatformType(config: Config) : Rule(config) {
+class HasUnsafePlatformTypeAssignment(config: Config) : Rule(config) {
 
     override val issue = Issue(
         "HasUnsafePlatformType",
         Severity.Maintainability,
-        "Platform types must be declared explicitly as nullable.",
+        "If platform types are declared explicitly, they must be declared as nullable.",
         Debt.FIVE_MINS
     )
 
