@@ -1,6 +1,12 @@
 package io.gitlab.arturbosch.detekt.rules.bugs
 
-import io.gitlab.arturbosch.detekt.api.*
+import io.gitlab.arturbosch.detekt.api.CodeSmell
+import io.gitlab.arturbosch.detekt.api.Config
+import io.gitlab.arturbosch.detekt.api.Debt
+import io.gitlab.arturbosch.detekt.api.Entity
+import io.gitlab.arturbosch.detekt.api.Issue
+import io.gitlab.arturbosch.detekt.api.Rule
+import io.gitlab.arturbosch.detekt.api.Severity
 import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.KtNamedDeclaration
@@ -31,7 +37,7 @@ import org.jetbrains.kotlin.types.isNullable
 class HasUnsafePlatformTypeAssignment(config: Config) : Rule(config) {
 
     override val issue = Issue(
-        "HasUnsafePlatformType",
+        "HasUnsafePlatformTypeAssignment",
         Severity.Maintainability,
         "If platform types are declared explicitly, they must be declared as nullable.",
         Debt.FIVE_MINS

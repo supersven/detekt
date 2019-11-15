@@ -93,10 +93,7 @@ clarification.
 ```kotlin
 class Foo {
 
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
     }
-}
 ```
 
 #### Compliant Code:
@@ -104,14 +101,7 @@ class Foo {
 ```kotlin
 class Foo {
 
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
     }
-
-    override fun hashCode(): Int {
-        return super.hashCode()
-    }
-}
 ```
 
 ### ExplicitGarbageCollectionCall
@@ -156,6 +146,32 @@ fun apiCall() = System.getProperty("propertyName")
 ```kotlin
 class Person {
 fun apiCall(): String = System.getProperty("propertyName")
+}
+```
+
+### HasUnsafePlatformTypeAssignment
+
+If platform types are declared explicitly, they must be declared as nullable to prevent unexpected errors.
+
+Very likely you'll want to use this rule in combination with [HasPlatformType].
+
+**Severity**: Maintainability
+
+**Debt**: 5min
+
+#### Noncompliant Code:
+
+```kotlin
+class Person {
+fun apiCall():String = System.getProperty("propertyName")
+}
+```
+
+#### Compliant Code:
+
+```kotlin
+class Person {
+fun apiCall(): String? = System.getProperty("propertyName")
 }
 ```
 

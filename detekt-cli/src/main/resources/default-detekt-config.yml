@@ -397,6 +397,8 @@ potential-bugs:
     active: true
   HasPlatformType:
     active: false
+  HasUnsafePlatformTypeAssignment:
+    active: false
   ImplicitDefaultLocale:
     active: false
   InvalidRange:
